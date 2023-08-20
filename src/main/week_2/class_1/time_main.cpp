@@ -12,9 +12,9 @@ int main(){
     t1.setMinute(30);
     t1.setSecond(15);
 
-    std::cout << "Hour: \n" << t1.getHour();
-    std::cout << "Minute: \n" << t1.getMinute();
-    std::cout << "Second: \n" << t1.getSecond();
+    std::cout << "Hour: " << t1.getHour() << "\n";
+    std::cout << "Minute: " << t1.getMinute() << "\n";
+    std::cout << "Second: " << t1.getSecond() << "\n";
 
     t1.print();
 
