@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include "../../../resources/test_base.h"
-#include "../../../../main/2022/week_2/class_2/vector_stack/vector_stack.cpp"
+#include "../../../../main/2023/week_2/stack/vector_stack/vector_stack.cpp"
 #include <cstddef>
 
 bool isStackEmpty(ItemType *structure) {
@@ -15,14 +15,16 @@ bool isStackEmpty(ItemType *structure) {
     return isEmpty;
 }
 
+int CAPACITY = 10;
+
 SCENARIO("Initializing a Stack structure") {
     GIVEN("an attempt to initialize a Stack") {
-        int structureSize = 10;
-        ItemType structure[structureSize];
-        VectorStack stack(structure, structureSize);
+        
+        ItemType structure[CAPACITY];
+        VectorStack VectorStack(structure, CAPACITY);
 
         WHEN("the stack was initialized") {
-            THEN("should initialize an empty stack") {
+            THEN("stack should be empty") {
                 CHECK(isStackEmpty(structure) == true);
             }
         }
@@ -30,13 +32,14 @@ SCENARIO("Initializing a Stack structure") {
 }
 
 SCENARIO("Stack is empty") {
-    GIVEN("a empty stack") {
-        ItemType *structure = new ItemType[100];
-        VectorStack stack(structure);
+    GIVEN("an empty stack") {
+        int capacity = 100;
+        ItemType *structure = new ItemType[CAPACITY];
+        VectorStack vectorStack(structure, CAPACITY);
         
         WHEN("it is tried to allocate a new element") {
             ItemType item = 'a';
-            stack.push(item);
+            vectorStack.push(item);
 
             THEN("it should allocate the new element successfully") {
                 CHECK(structure[0] == item);
@@ -46,7 +49,7 @@ SCENARIO("Stack is empty") {
         WHEN("it tries to pop out an element") {
             THEN("it does nothing with the stack") {
                 try {
-                    stack.pop();
+                    vectorStack.pop();
                 }
                 catch(std::exception e) {
                     CHECK(structure[0] == (char) NULL);
@@ -54,7 +57,7 @@ SCENARIO("Stack is empty") {
             }
 
             AND_THEN("it should throw an exception") {
-                CHECK_THROWS_AS(stack.pop(), std::exception);
+                CHECK_THROWS_AS(vectorStack.pop(), std::exception);
             }
         }
 
@@ -62,7 +65,7 @@ SCENARIO("Stack is empty") {
         {
             THEN("it should return true")
             {
-                CHECK(stack.isEmpty() == true);
+                CHECK(vectorStack.isEmpty() == true);
             }
         }
     }
@@ -70,19 +73,18 @@ SCENARIO("Stack is empty") {
 
 SCENARIO("Stack has at least 1 element") {
     GIVEN("a stack with 1 element") {
-        int structureSize = 10;
-        ItemType structure[structureSize];
-        VectorStack stack(structure, structureSize);
-        stack.push('a');
+        ItemType structure[CAPACITY];
+        VectorStack vectorStack(structure, CAPACITY);
+        vectorStack.push('a');
         
         WHEN("it is tried to allocate a new item") {
             THEN("it should allocate this new item successfully") {
-                stack.push('b');
+                vectorStack.push('b');
                 CHECK(structure[1] == 'b');
             }
 
             AND_THEN("this new item should be allocated at the top of the stack") {
-                stack.push('b');
+                vectorStack.push('b');
                 CHECK(structure[0] == 'a');
                 CHECK(structure[1] == 'b');
                 CHECK(structure[2] == (ItemType) NULL);
@@ -90,7 +92,7 @@ SCENARIO("Stack has at least 1 element") {
         }
     
         AND_WHEN("it is tried to pop an item") {
-            ItemType poppedItem = stack.pop();
+            ItemType poppedItem = vectorStack.pop();
             
             THEN("it should return the popped item from the stack") {
                 CHECK(poppedItem == 'a');
@@ -102,34 +104,32 @@ SCENARIO("Stack has at least 1 element") {
 
             AND_WHEN("it is tried to push a new item") {
                 ItemType newItem = 'c';
-                stack.push(newItem);
+                vectorStack.push(newItem);
 
                 THEN("it should put this item in the bottom of the stack") {
-                    int bottom = 0;
+                    int top = 0;
 
-                    CHECK(structure[bottom] == newItem);
+                    CHECK(structure[top] == newItem);
                 }
             }
         }
     }
 
     GIVEN("a stack with 2 elements") {
-        int structureSize = 10;
+        ItemType structure[CAPACITY];
 
-        ItemType structure[structureSize];
-
-        VectorStack stack(structure, structureSize);
+        VectorStack vectorStack(structure, CAPACITY);
 
         ItemType firstItem = 'a';
         ItemType secondItem = 'b';
 
-        stack.push(firstItem);
-        stack.push(secondItem);
+        vectorStack.push(firstItem);
+        vectorStack.push(secondItem);
 
         WHEN("it is tried to allocate a new item") {
             ItemType thirdItem = 'c';
 
-            stack.push(thirdItem);
+            vectorStack.push(thirdItem);
             
             THEN("it should allocate this new item") {
                 CHECK(structure[2] == 'c');
@@ -147,7 +147,7 @@ SCENARIO("Stack has at least 1 element") {
         AND_WHEN("it is tried to pop an element") {
             int lastTopItem = secondItem;
 
-            ItemType poppedItem = stack.pop();
+            ItemType poppedItem = vectorStack.pop();
             
             THEN("it should return the popped item from the stack") {
                 CHECK(poppedItem == lastTopItem);
@@ -167,17 +167,17 @@ SCENARIO("Stack is fullfilled") {
 
         ItemType structure[structureSize];
 
-        VectorStack stack(structure, structureSize);
+        VectorStack vectorStack(structure, structureSize);
 
         ItemType firstItem = 'a';
         ItemType secondItem = 'b';
 
-        stack.push(firstItem);
-        stack.push(secondItem);
+        vectorStack.push(firstItem);
+        vectorStack.push(secondItem);
 
         WHEN("isFull is called") {
             THEN("it should be true") {
-                CHECK(stack.isFull() == true);
+                CHECK(vectorStack.isFull() == true);
             }
         }
 
@@ -185,7 +185,7 @@ SCENARIO("Stack is fullfilled") {
             ItemType thirdItem = 'c';
             int topOfStack = 1;
 
-            stack.push(thirdItem);
+            vectorStack.push(thirdItem);
 
             THEN("it shouldn't allocate the new item") {
                 CHECK(structure[topOfStack] == secondItem);
