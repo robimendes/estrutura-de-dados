@@ -1,6 +1,6 @@
 #include <stdexcept>
-#include "../../../resources/test_base.h"
-#include "../../../../main/2023/week_2/stack/vector_stack/vector_stack.cpp"
+#include "../resources/test_base.h"
+#include "../../main/2023/week_2/stack/vector_stack/vector_stack.cpp"
 #include <cstddef>
 
 bool isStackEmpty(ItemType *structure) {
