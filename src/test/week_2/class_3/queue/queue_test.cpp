@@ -1,15 +1,15 @@
 #include "../../../resources/test_base.h"
-#include "../../../../main/2022/week_2/class_3/queue/queue.cpp"
+#include "../../../../main/2023/week_2/queue/vector_queue/vector_queue.cpp"
 
 SCENARIO("initializing a queue structure") {
-    GIVEN("a initialized queue") {
+    GIVEN("an initialized queue") {
         int structureSize = 2;
         ItemType structure[2];
 
         Queue queue(structure, structureSize);
 
         WHEN("checks wether it is empty") {    
-            THEN("the response should be positive") {
+            THEN("it should be empty") {
                 CHECK(queue.isEmpty() == true);
             }
         }
@@ -138,13 +138,17 @@ SCENARIO("queue has at least one item") {
 
 SCENARIO("queue is empty") {
     GIVEN("an empty queue") {
-        Queue queue;
+        int capacity = 10;
+        ItemType *emptyQueue = new ItemType[capacity];
+        Queue queue(emptyQueue, capacity);
 
         WHEN("dequeue it") {
             THEN("throw an exception") {
                 CHECK_THROWS_AS(queue.dequeue(), std::exception);
             }
         }
+
+        delete []emptyQueue;
     }
 }
 
