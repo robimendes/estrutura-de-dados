@@ -12,9 +12,9 @@ This repository has c++ scripts based on data structure studies.
 
 ## How to run
 - Just compile and execute the script you want to put to work and execute the generated compiled file.
-- For exemple, to compile the `week_2/class_1` program, go to week_2/class_1 and run the following command:
+- For exemple, to compile and run the `/src/main/2022/week_2/class_1` program, go to week_2/class_1 and run the following command:
 ```
-g++ *.cpp -o  -std=c++17 ../../bin/class_1 | ../../bin/class_1
+g++ *.cpp -o ../../../../bin/class_1 | ../../../../class_1
 ```
 
 # Code conventions
@@ -24,4 +24,8 @@ All code conventions of this repository is based on the [Gromacs manual](https:/
 We use [doctest](https://github.com/doctest/doctest/blob/master/doc/markdown/testcases.md) to make the tests.
 All test classes are put in \test repository.
 
-- To compile tests there is used -std=c++17 flag.
+- To compile and run the tests, enter the folder where the test is and run:
+```
+g++ queue_test.cpp -o ../../../../bin/test/queue_test -std=c++17 | ../../../../bin/test/queue_test
+```
+- Replace the queue_test to the name of the test file you want to run.
